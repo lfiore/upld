@@ -15,10 +15,12 @@ $('#image-input').on('change', function()
 
 $('#select-image, #cancel-image').on('click', function()
 {
-
 	$('#image-input').click();
-
 });
+
+$('#delete').on('click', function() {
+	return confirm('Are you sure you want to delete this image?');
+})
 
 $('#links li input').on('click', function()
 {

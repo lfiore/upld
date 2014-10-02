@@ -1,3 +1,12 @@
+<?php
+
+if (!isset($in_script))
+{
+	exit('you are not allowed to access this page directly');
+}
+
+?>
+
 <div id="sidebar">
 
 	<ul id="links" class="box sidebar-box">
@@ -18,10 +27,51 @@
 		<li>image dimensions: <?php echo $dimensions[0] . 'x' . $dimensions[1]; ?></li>
 		<li>image size: <?php echo ($size > 1024 ? round(($size / 1024), 1) . 'MB' : round($size, 1) . 'KB' ); ?></li>
 		<li>image type: <?php echo $image['ext']; ?></li>
+
+<?php
+
+if (isset($_SESSION['admin']))
+{
+
+?>
+
+		<li>Upload time: <?php echo $image['time']; ?></li>
+		<li>Uploader IP: <?php echo $image['ip']; ?></li>
+
+<?php
+
+}
+
+?>
+
 	</ul>
 
 	<ul id="report">
+
+<?php
+
+if (isset($_SESSION['admin'])) {
+
+?>
+
+		<li><a id="delete" href="delete.php?id=<?php echo $_GET['id']; ?>">DELETE this image</a></li>
+
+<?php
+
+}
+else
+{
+
+?>
+
 		<li><a href="report.php?id=<?php echo $_GET['id']; ?>">report this image</a></li>
+
+<?php
+
+}
+
+?>
+
 	</ul>
 
 </div>
@@ -29,3 +79,4 @@
 <div id="image" class="box">
 	<img src="<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>" />
 </div>
+

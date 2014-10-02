@@ -4,7 +4,7 @@ $start = microtime(true);
 
 function create_id()
 {
-	$chars = 'ACDEFHJKLMNPQRTUVWXYZabcdefghijkmnopqrstuvwxyz23479';
+	$i = '', $chars = 'ACDEFHJKLMNPQRTUVWXYZabcdefghijkmnopqrstuvwxyz23479';
 	for ($i = 0; $i < 5; ++$i)
 	{
 		$id .= $chars[mt_rand(0, 50)];
@@ -13,24 +13,25 @@ function create_id()
 }
 
 require('conf.php');
+require('common.php');
 
 $image = $_FILES['image'];
 $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
 
 if ($image['size'] > $allowed_size)
 {
-	$error = 'Hmm, the image you have selected is too large.';
+	$messsage = 'Hmm, the image you have selected is too large.';
 	require('inc/header.php');
-	require('inc/error.php');
+	require('inc/messsage.php');
 	require('inc/footer.php');
 	exit;
 }
 
 if (!in_array($ext, $allowed_ext))
 {
-	$error = 'Hmm, the image you uploaded has an incorrect extension and is not allowed.';
+	$messsage = 'Hmm, the image you uploaded has an incorrect extension and is not allowed.';
 	require('inc/header.php');
-	require('inc/error.php');
+	require('inc/messsage.php');
 	require('inc/footer.php');
 	exit;
 }

@@ -1,3 +1,12 @@
+<?php
+
+if (!isset($in_script))
+{
+	exit('you are not allowed to access this page directly');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

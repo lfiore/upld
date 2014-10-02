@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   `id` char(5) NOT NULL,
   `ext` char(3) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ip` varchar(39) NOT NULL
+  `ip` varchar(39) NOT NULL,
+  `removed` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `reports` (
@@ -26,7 +27,7 @@ ALTER TABLE `images`
  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `reports`
- ADD PRIMARY KEY `id` (`id`);
+ ADD PRIMARY KEY (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,9 +1,16 @@
 <?php
 
-$site_name		= 'mycoolsite'; // site name displayed in the header and FAQ/ToS
+$site_name		= 'mysite'; // site name displayed in the header and FAQ/ToS
 
 $site_url		= 'mydomain.com'; // the domain ONLY for your site (i.e. without the "upld" folder)
 $script_path	= 'upld'; // 
+
+// admin username
+$admin_username = 'admin';
+
+// admin password and salt - use "pass.html" in the "misc" folder to generate these values
+$admin_salt = '';
+$admin_password = '';
 
 // email for contact page
 $contact_email = 'contact@mydomain.com'; // the email on the contact page
@@ -15,9 +22,9 @@ $report_email = 'reports@mydomain.com'; // where emails should be sent if someon
 $friendly_urls	= false;
 
 $db_server	= 'localhost';
-$db_user	= 'dbusername';
-$db_pass	= 'dbpassword';
-$db_name	= 'databasename';
+$db_user	= 'user';
+$db_pass	= 'password';
+$db_name	= 'db';
 $db_port	= 3306; // usually 3306 by default. If you don't know what this is, leave it alone and ask your hosting company if it doesn't work
 
 // max size in bytes - remember that you might need to change this in your PHP config file too

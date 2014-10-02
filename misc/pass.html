@@ -1,0 +1,30 @@
+<input id="password-input" type="password" placeholder="enter your chosen password (at least 8 characters)" size="50" />
+
+<p>after choosing a password, copy and paste the following into your config file (overwrite existing salt and password contents)</p>
+
+<div>
+$admin_salt = '<span id="salt"></span>';<br />
+$admin_password = '<span id="password"></span>';
+</div>
+
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="sha256.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$('#password-input').keyup(function()
+{
+	if ($(this).val().length >= 8)
+	{
+		salt = (Math.random() +1).toString(36).substr(2, 16);
+		$('#salt').text(salt);
+		hashed = CryptoJS.SHA256(salt + $(this).val());
+		$('#password').text(hashed);
+	}
+	else
+	{
+		$('#salt').empty();
+		$('#password').empty();
+	}
+});
+
+</script>

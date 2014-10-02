@@ -39,8 +39,26 @@ li:last-child {
 	margin-bottom: 0;
 }
 
+form[name='login'] input {
+	display: block;
+	margin-bottom: 10px;
+	background-color: #F8F8F8;
+}
+
+form[name='login'] input:last-child {
+	margin-bottom: 0;
+}
+
 input {
+	padding: 5px;
+	color: #666;
+	border: none;
 	outline: none;
+}
+
+form[name='login'] input[type='submit'] {
+	background-color: #3BF;
+	color: #FFF;
 }
 
 .black, #faq li:nth-child(odd) {
@@ -80,10 +98,7 @@ input {
 
 .sidebar-box input {
 	width: 100%;
-	padding: 5px;
 	background-color: #FFF;
-	color: #666;
-	border: none;
 }
 
 .code {
@@ -222,8 +237,10 @@ input {
 
 #footer {
 	clear: both;
-	margin: 10px 0;
-	color: #CCC;
+	margin-top: 20px;
 	text-align: center;
 }
 
+#footer a {
+	color: #BBB;
+}

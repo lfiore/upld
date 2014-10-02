@@ -9,8 +9,8 @@ if (!isset($in_script))
 
 <div class="box">
 
-	<p class="title">Contact</p>
+	<p class="title">Message</p>
 
-	<p>If you would like to contact us, please email <?php echo $contact_email; ?></p>
+	<p><?php echo $message; ?></p>
 
 </div>
