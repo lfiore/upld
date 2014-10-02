@@ -1,0 +1,17 @@
+----- Installation steps -----
+
+1) Import the upload.sql file to your database through phpMyAdmin
+2) Amend the conf.php file in the "public" folder
+3) Upload the files in the "public" folder
+4) chmod the "images" folder to 0777
+
+----- (OPTIONAL) URL rewrite settings for lighttpd -----
+
+$HTTP["host"] == "domain.com" {
+	url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
+}
+
+$HTTP["host"] == "i.domain.com" {
+	server.document-root = "/path/to/upld/script/from/root/images/"
+}
+
