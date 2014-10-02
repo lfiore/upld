@@ -4,7 +4,8 @@ $start = microtime(true);
 
 function create_id()
 {
-	$i = '', $chars = 'ACDEFHJKLMNPQRTUVWXYZabcdefghijkmnopqrstuvwxyz23479';
+	$i = '';
+	$chars = 'ACDEFHJKLMNPQRTUVWXYZabcdefghijkmnopqrstuvwxyz23479';
 	for ($i = 0; $i < 5; ++$i)
 	{
 		$id .= $chars[mt_rand(0, 50)];
