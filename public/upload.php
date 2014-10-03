@@ -54,5 +54,5 @@ move_uploaded_file($image['tmp_name'], 'images/' . $id . '.' . $ext);
 mysqli_query($db, 'INSERT INTO `images` (`id`, `ext`, `ip`) VALUES ("' . $id . '", "' . $ext . '", "' . $_SERVER['REMOTE_ADDR'] . '")');
 ++$db_queries;
 
-header('location: view.php?id=' . $id);
+header('location: ' . $view_url . $id);
 
