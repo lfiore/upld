@@ -17,8 +17,13 @@
 
 
 $HTTP["host"] == "domain.com" {
+	
+url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
 
-	url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
+
+	# if you have the scripts in a folder, i.e. "folderName" then use amend the rule like below
+	# 
+url.rewrite = ( "^folderName/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
 
 }
 
@@ -31,3 +36,10 @@ $HTTP["host"] == "i.domain.com" {
 }
 
 
+
+----- (OPTIONAL) virtual host settings for i.domain.com with Apache -----
+
+<VirtualHost *:80>
+    DocumentRoot /path/to/upld/script/from/root/images
+    ServerName i.domain.com
+</VirtualHost>
