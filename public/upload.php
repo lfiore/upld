@@ -42,7 +42,7 @@ require('db.php');
 do
 {
 	$id = create_id();
-	$exists = mysqli_query($db, 'SELECT EXISTS(SELECT 1 FROM `images` WHERE `name` = "' . $id . '")');
+	$exists = mysqli_query($db, 'SELECT EXISTS(SELECT 1 FROM `images` WHERE `id` = "' . $id . '")');
 	++$db_queries;
 }
 while (mysqli_fetch_assoc($exists) === 1);
