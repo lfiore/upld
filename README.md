@@ -1,6 +1,7 @@
-Image upload script by Luciano Fiore
+upld
+====
 
-
+A short URL image hosting script written in PHP with MySQL for the DB
 
 You can test the script out at http://upld.eu/
 

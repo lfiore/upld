@@ -21,18 +21,18 @@ $ext = pathinfo($image['name'], PATHINFO_EXTENSION);
 
 if ($image['size'] > $allowed_size)
 {
-	$messsage = 'Hmm, the image you have selected is too large.';
+	$message = 'Hmm, the image you have selected is too large.';
 	require('inc/header.php');
-	require('inc/messsage.php');
+	require('inc/message.php');
 	require('inc/footer.php');
 	exit;
 }
 
 if (!in_array($ext, $allowed_ext))
 {
-	$messsage = 'Hmm, the image you uploaded has an incorrect extension and is not allowed.';
+	$message = 'Hmm, the image you uploaded has an incorrect extension and is not allowed.';
 	require('inc/header.php');
-	require('inc/messsage.php');
+	require('inc/message.php');
 	require('inc/footer.php');
 	exit;
 }
