@@ -50,23 +50,43 @@ form[name='login'] input:last-child {
 }
 
 input {
+	width: 100%;
 	padding: 5px;
 	color: #666;
 	border: none;
 	outline: none;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 form[name='login'] input[type='submit'] {
 	background-color: #3BF;
 	color: #FFF;
 }
+/*
+::-webkit-input-placeholder {
+	color: #DDD;
+}
 
+:-moz-placeholder {
+	color: #FFF;
+}
+
+::-moz-placeholder {
+	color: #FFF;
+}
+
+:-ms-input-placeholder {
+	color: #FFF;
+}
+*/
 .black, #faq li:nth-child(odd) {
 	color: #000;
 }
 
 .box {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	padding: 10px;
 	background-color: #FFF;
 }
@@ -78,6 +98,7 @@ form[name='login'] input[type='submit'] {
 .title {
 	margin-bottom: 15px;
 	color: #06F;
+	font-weight: bold;
 }
 
 .hidden {
@@ -163,7 +184,7 @@ form[name='login'] input[type='submit'] {
 }
 
 #select-image {
-	padding: 40px 10px;
+	padding: 30px 10px;
 	background-color: #3BF;
 	color: #FFF;
 	text-align: center;
@@ -175,7 +196,7 @@ form[name='login'] input[type='submit'] {
 }
 
 #select-image:hover {
-	background-color: #5AF;
+	background-color: #2AF;
 }
 
 #cancel-image {
@@ -188,6 +209,34 @@ form[name='login'] input[type='submit'] {
 
 #cancel-image span {
 	cursor: pointer;
+}
+
+#download-url {
+	width: 250px;
+	float: right;
+	padding: 0;
+}
+
+#download-url input {
+	padding: 15px 10px;
+	background-color: #9A6;
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+#download-url input:hover {
+	background-color: #796;
+	cursor: pointer;
+}
+
+#select-url {
+	margin-right: 250px;
+	padding: 0;
+	cursor: text;
+}
+
+#select-url-input {
+	padding: 15px 10px;
 }
 
 #allowed-ext {
@@ -237,7 +286,7 @@ form[name='login'] input[type='submit'] {
 
 #footer {
 	clear: both;
-	margin-top: 20px;
+	margin: 20px 20px 0;
 	text-align: center;
 }
 
