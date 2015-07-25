@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect($db_server, $db_user, $db_pass, $db_name, $db_port);
+$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
 $db_queries = 0;
 

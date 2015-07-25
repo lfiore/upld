@@ -4,29 +4,23 @@ $start = microtime(true);
 
 session_start();
 
-require('conf.php');
+require('config.php');
 require('common.php');
-require('inc/header.php');
 
-if (($admin_username === '') || ($admin_salt === '') || ($admin_password === ''))
+if ((ADMIN_USERNAME === '') || (ADMIN_SALT === '') || (ADMIN_PASSWORD === ''))
 {
-	$message = 'Login not allowed, please set login details in conf file';
-	require('inc/message.php');
-	require('inc/footer.php');
-	exit;
+	exit_message('Login not allowed, please set login details in conf file');
 }
 
 if (isset($_POST['username']) && isset($_POST['password']))
 {
-	if (($_POST['username'] === $admin_username) && (hash('sha256', $admin_salt . $_POST['password']) === $admin_password)) {
+	if (($_POST['username'] === ADMIN_USERNAME) && (hash('sha256', ADMIN_SALT . $_POST['password']) === ADMIN_PASSWORD)) {
 		$_SESSION['admin'] = true;
-		$message = 'You have now been logged in. You can delete images with the red text under the "info" box on an image\'s page';
-		require('inc/message.php');
-		require('inc/footer.php');
-		exit;
+		exit_message('You have now been logged in. You can delete images with the red text under the "info" box on an image\'s page');
 	}
 }
 
+require('inc/header.php');
 require('inc/login.php');
 require('inc/footer.php');
 

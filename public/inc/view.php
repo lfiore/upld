@@ -1,8 +1,9 @@
 <?php
 
-if (!isset($in_script))
+if (!defined('IN_SCRIPT'))
 {
-	exit('you are not allowed to access this page directly');
+	header('location: ../index.php');
+	exit;
 }
 
 ?>
@@ -77,6 +78,6 @@ else
 </div>
 
 <div id="image" class="box">
-	<img src="<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>" />
+	<img src="<?php echo IMAGES_URL . $_GET['id'] . '.' . $image['ext']; ?>" />
 </div>
 

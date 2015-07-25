@@ -18,7 +18,7 @@
 
 $HTTP["host"] == "domain.com" {
 	
-url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
+url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/www/view.php?id=$1" )
 
 
 	# if you have the scripts in a folder, i.e. "folderName" then use amend the rule like below

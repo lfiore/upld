@@ -1,8 +1,9 @@
 <?php
 
-if (!isset($in_script))
+if (!defined('IN_SCRIPT'))
 {
-	exit('you are not allowed to access this page directly');
+	header('location: ../index.php');
+	exit;
 }
 
 ?>
@@ -11,6 +12,6 @@ if (!isset($in_script))
 
 	<p class="title">Contact</p>
 
-	<p>If you would like to contact us, please email <?php echo $contact_email; ?></p>
+	<p>If you would like to contact us, please email <?php echo CONTACT_EMAIL; ?></p>
 
 </div>

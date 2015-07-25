@@ -1,8 +1,9 @@
 <?php
 
-if (!isset($in_script))
+if (!defined('IN_SCRIPT'))
 {
-	exit('you are not allowed to access this page directly');
+	header('location: ../index.php');
+	exit;
 }
 
 ?>
@@ -10,7 +11,7 @@ if (!isset($in_script))
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $site_name; ?></title>
+	<title><?php echo SITE_NAME; ?></title>
 	<link href="css/upload.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -22,7 +23,7 @@ if (!isset($in_script))
 			<li><a href="index.php">upload</a></li><li><a href="faq.php">faq</a></li><li><a href="tc.php">Terms &amp; Conditions</a></li><li><a href="contact.php">contact</a></li>
 		</ul>
 
-		<div id="logo"><?php echo $site_name; ?></div>
+		<div id="logo"><?php echo SITE_NAME; ?></div>
 
 	</div>
 

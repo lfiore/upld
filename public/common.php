@@ -1,12 +1,19 @@
 <?php
 
-$main_site_url = trim($site_url, '/') . '/';
+define('MAIN_SITE_URL', trim(SITE_URL, '/') . '/');
 
-$main_script_path = ($script_path ? trim($script_path, '/') . '/' : '');
+define('MAIN_SCRIPT_PATH', (SCRIPT_PATH ? trim(SCRIPT_PATH, '/') . '/' : ''));
 
-$view_url = 'http://' . $main_site_url . $main_script_path . ($friendly_urls ? '' : 'view.php?id=');
+define('VIEW_URL', 'http://' . MAIN_SITE_URL . MAIN_SCRIPT_PATH . (FRIENDLY_URLS ? '' : 'view.php?id='));
 
-$images_url = 'http://' . ($friendly_urls ? 'i.' : '') . $main_site_url . ($friendly_urls ? '' : $main_script_path . 'images/');
+define('IMAGES_URL', 'http://' . (FRIENDLY_URLS ? 'i.' : '') . MAIN_SITE_URL . (FRIENDLY_URLS ? '' : MAIN_SCRIPT_PATH . 'images/'));
 
-$in_script = true;
+define('IN_SCRIPT', true);
 
+function exit_message($message)
+{
+	require('inc/header.php');
+	require('inc/message.php');
+	require('inc/footer.php');
+	exit;
+}

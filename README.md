@@ -1,7 +1,7 @@
 upld
 ====
 
-A short URL image hosting script written in PHP with MySQL for the DB
+An image hosting script written in PHP with MySQL for the DB. Has support for short URLs
 
 You can test the script out at http://upld.eu/
 

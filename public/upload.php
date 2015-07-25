@@ -13,11 +13,18 @@ function create_id()
 	return $id;
 }
 
-require('conf.php');
+require('config.php');
 require('common.php');
 
+$allowed_ext = [
+	'png',
+	'jpg',
+	'gif',
+	'bmp'
+];
+
 // determine if user selected a local or remote image 
-if ($_FILES['image'] && !$_POST['url'])
+if (isset($_FILES['image']) && !isset($_POST['url']))
 {
 	// user wants to upload via browser
 
@@ -25,7 +32,7 @@ if ($_FILES['image'] && !$_POST['url'])
 	$image = $_FILES['image'];
 
 	// check if image is within size limit
-	if ($image['size'] <= $allowed_size)
+	if ($image['size'] <= ALLOWED_SIZE)
 	{
 		// image is within size limit
 
@@ -58,27 +65,19 @@ if ($_FILES['image'] && !$_POST['url'])
 		}
 		else
 		{
-			$message = 'Hmm, the image you uploaded has an incorrect extension and is not allowed.';
-			require('inc/header.php');
-			require('inc/message.php');
-			require('inc/footer.php');
-			exit;
+			exit_message('Hmm, the image you uploaded has an incorrect extension and is not allowed.');
 		}
 	}
 	else
 	{
-		$message = 'Hmm, the image you have uploaded is too large.';
-		require('inc/header.php');
-		require('inc/message.php');
-		require('inc/footer.php');
-		exit;
+		exit_message('Hmm, the image you have uploaded is too large.');
 	}
 }
-elseif ($_POST['url'] && !$_FILES['image'])
+elseif (isset($_POST['url']) && !isset($_FILES['image']))
 {
 	// user wants to download a remote image
 	// is remote downloading enabled in conf.php?
-	if ($allow_remote === true)
+	if (ALLOW_REMOTE === true)
 	{
 		// remote downloading is enabled
 
@@ -95,7 +94,7 @@ elseif ($_POST['url'] && !$_FILES['image'])
 
 				// check size remotely
 				$size = get_headers($_POST['url'], 1)['Content-Length'];
-				if ($size <= $allowed_size)
+				if ($size <= ALLOWED_SIZE)
 				{
 					// SIZE IS WITHIN LIMIT
 
@@ -129,65 +128,37 @@ elseif ($_POST['url'] && !$_FILES['image'])
 					}
 					else
 					{
-						$message = 'Hmm, the file you submitted does not appear to be a valid image file.';
-						require('inc/header.php');
-						require('inc/message.php');
-						require('inc/footer.php');
-						exit;
+						exit_message('Hmm, the file you submitted does not appear to be a valid image file.');
 					}
 				}
 				else
 				{
-					$message = 'Hmm, the image you have selected is too large.';
-					require('inc/header.php');
-					require('inc/message.php');
-					require('inc/footer.php');
-					exit;
+					exit_message('Hmm, the image you have selected is too large.');
 				}
 			}
 			else
 			{
-				$message = 'Hmm, the image you selected has an incorrect extension and is not allowed.';
-				require('inc/header.php');
-				require('inc/message.php');
-				require('inc/footer.php');
-				exit;
+				exit_message('Hmm, the image you selected has an incorrect extension and is not allowed.');
 			}
 		}
 		else
 		{
-			$message = 'Please submit a valid http/https URL only';
-			require('inc/header.php');
-			require('inc/message.php');
-			require('inc/footer.php');
-			exit;	
+			exit_message('Please submit a valid http/https URL only');
 		}
 	}
 	else
 	{
-		$message = 'Remote downloading is not enabled';
-		require('inc/header.php');
-		require('inc/message.php');
-		require('inc/footer.php');
-		exit;	
+		exit_message('Remote downloading is not enabled');
 	}
 }
 elseif ($_FILES['image'] && $_POST['url'])
 {
-	$message = 'Please only choose one image to upload.';
-	require('inc/header.php');
-	require('inc/message.php');
-	require('inc/footer.php');
-	exit;	
+	exit_message('Please only choose one image to upload.');
 }
 else
 {
-	$message = 'Please choose either an image on your computer to upload or a remote image to download.';
-	require('inc/header.php');
-	require('inc/message.php');
-	require('inc/footer.php');
-	exit;	
+	exit_message('Please choose either an image on your computer to upload or a remote image to download.');
 }
 
-header('location: ' . $view_url . $id);
+header('location: ' . VIEW_URL . $id);
 

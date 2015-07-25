@@ -1,295 +1,281 @@
 @font-face {
-	font-family: 'Open Sans';
-	src: url('http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2') format('woff2');
+    font-family: 'Open Sans';
+    src: url('http://fonts.gstatic.com/s/opensans/v10/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2') format('woff2');
 }
 
 * {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-body, a {
-	color: #666;
+body,
+a {
+    color: #666;
 }
 
 body {
-	background-color: #EEE;
-	font-family: 'Open Sans', 'Arial', sans-serif;
-	font-size: 0.875em;
+    background-color: #EEE;
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    font-size: 0.875em;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 p {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 p:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 li {
-	margin-bottom: 5px;
-	list-style-type: none;
+    margin-bottom: 5px;
+    list-style-type: none;
 }
 
 li:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 form[name='login'] input {
-	display: block;
-	margin-bottom: 10px;
-	background-color: #F8F8F8;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #F8F8F8;
 }
 
 form[name='login'] input:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 input {
-	width: 100%;
-	padding: 5px;
-	color: #666;
-	border: none;
-	outline: none;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    color: #666;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 form[name='login'] input[type='submit'] {
-	background-color: #3BF;
-	color: #FFF;
-}
-/*
-::-webkit-input-placeholder {
-	color: #DDD;
+    background-color: #3BF;
+    color: #FFF;
 }
 
-:-moz-placeholder {
-	color: #FFF;
-}
-
-::-moz-placeholder {
-	color: #FFF;
-}
-
-:-ms-input-placeholder {
-	color: #FFF;
-}
-*/
-.black, #faq li:nth-child(odd) {
-	color: #000;
+.black,
+#faq li:nth-child(odd) {
+    color: #000;
 }
 
 .box {
-	margin-bottom: 10px;
-	padding: 10px;
-	background-color: #FFF;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #FFF;
 }
 
 .box:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .title {
-	margin-bottom: 15px;
-	color: #06F;
-	font-weight: bold;
+    margin-bottom: 15px;
+    color: #06F;
+    font-weight: bold;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .sidebar-box {
-	color: #FFF;
+    color: #FFF;
 }
 
 .sidebar-box li {
-	margin: 0 10px 5px 0;
+    margin: 0 10px 5px 0;
 }
 
 .sidebar-box li:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .sidebar-box input {
-	width: 100%;
-	background-color: #FFF;
+    width: 100%;
+    background-color: #FFF;
 }
 
 .code {
-	padding: 2px;
-	background-color: #777;
+    padding: 2px;
+    background-color: #777;
 }
 
 .tc {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .tc:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .tc li {
-	margin: 0 0 5px 30px;
-	list-style-type: square;
+    margin: 0 0 5px 30px;
+    list-style-type: square;
 }
 
 .tc li:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 #header {
-	padding: 0 20px;
-	background-color: #222;
-	color: #FFF;
-	text-transform: uppercase;
+    padding: 0 20px;
+    background-color: #222;
+    color: #FFF;
+    text-transform: uppercase;
 }
 
 #navbar {
-	float: right;
+    float: right;
 }
 
 #navbar li {
-	display: inline-block;
-	border-left: #444 solid 1px;
+    display: inline-block;
+    border-left: #444 solid 1px;
 }
 
 #navbar li:last-child {
-	border-right: #444 solid 1px;
+    border-right: #444 solid 1px;
 }
 
 #navbar li a {
-	display: inline-block;
-	padding: 20px 20px;
-	color: #FFF;
+    display: inline-block;
+    padding: 20px 20px;
+    color: #FFF;
 }
 
 #navbar li a:hover {
-	background-color: #111;
-	color: #FFF;
+    background-color: #111;
+    color: #FFF;
 }
 
 #logo {
-	padding: 20px 0;
+    padding: 20px 0;
 }
 
 #main {
-	margin: 20px 20px 0;
+    margin: 20px 20px 0;
 }
 
 #select-image {
-	padding: 30px 10px;
-	background-color: #3BF;
-	color: #FFF;
-	text-align: center;
-	text-transform: uppercase;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+    padding: 30px 10px;
+    background-color: #3BF;
+    color: #FFF;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 #select-image:hover {
-	background-color: #2AF;
+    background-color: #2AF;
 }
 
 #cancel-image {
-	margin-bottom: 20px;
-	color: #F33;
-	text-align: center;
-	font-size: 0.75em;
-	font-weight: bold;
+    margin-bottom: 20px;
+    color: #F33;
+    text-align: center;
+    font-size: 0.75em;
+    font-weight: bold;
 }
 
 #cancel-image span {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #download-url {
-	width: 250px;
-	float: right;
-	padding: 0;
+    width: 250px;
+    float: right;
+    padding: 0;
 }
 
 #download-url input {
-	padding: 15px 10px;
-	background-color: #9A6;
-	color: #FFF;
-	text-transform: uppercase;
+    padding: 15px 10px;
+    background-color: #9A6;
+    color: #FFF;
+    text-transform: uppercase;
 }
 
 #download-url input:hover {
-	background-color: #796;
-	cursor: pointer;
+    background-color: #796;
+    cursor: pointer;
 }
 
 #select-url {
-	margin-right: 250px;
-	padding: 0;
-	cursor: text;
+    margin-right: 250px;
+    padding: 0;
+    cursor: text;
 }
 
 #select-url-input {
-	padding: 15px 10px;
+    padding: 15px 10px;
 }
 
 #allowed-ext {
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 #sidebar {
-	float: right;
-	width: 270px;
+    float: right;
+    width: 270px;
 }
 
 #links {
-	background-color: #3BF;
+    background-color: #3BF;
 }
 
 #info {
-	margin-bottom: 10px;
-	background-color: #111;
+    margin-bottom: 10px;
+    background-color: #111;
 }
 
 #report {
-	text-align: center;
+    text-align: center;
 }
 
 #report a {
-	color: #F33;
-	font-size: 0.75em;
-	font-weight: bold;
+    color: #F33;
+    font-size: 0.75em;
+    font-weight: bold;
 }
 
 #image {
-	margin: 0 290px 20px 0;
-	text-align: center;
+    margin: 0 290px 20px 0;
+    text-align: center;
 }
 
 #image img {
-	max-width: 100%;
+    max-width: 100%;
 }
 
 #faq li:nth-child(even) {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #faq li:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 #footer {
-	clear: both;
-	margin: 20px 20px 0;
-	text-align: center;
+    clear: both;
+    margin: 20px 20px 0;
+    text-align: center;
 }
 
 #footer a {
-	color: #BBB;
+    color: #BBB;
 }
