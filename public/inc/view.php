@@ -12,15 +12,15 @@ if (!defined('IN_SCRIPT'))
 
 	<ul id="links" class="box sidebar-box">
 		<li>preview link (email &amp; chat)</li>
-		<li><input type="text" value="<?php echo $view_url . $_GET['id']; ?>" readonly /></li>
+		<li><input type="text" value="<?php echo VIEW_URL . $_GET['id']; ?>" readonly /></li>
 		<li>direct link (websites &amp; backgrounds)</li>
-		<li><input type="text" value="<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>" readonly /></li>
+		<li><input type="text" value="<?php echo IMAGES_URL . $_GET['id'] . '.' . $image['ext']; ?>" readonly /></li>
 		<li>html code (websites)</li>
-		<li><input type="text" size="25" value="<img src=&#34;<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>&#34; alt=&#34;<?php echo $_GET['id']; ?>&#34; />" readonly /></li>
+		<li><input type="text" size="25" value="<img src=&#34;<?php echo IMAGES_URL . $_GET['id'] . '.' . $image['ext']; ?>&#34; alt=&#34;<?php echo $_GET['id']; ?>&#34; />" readonly /></li>
 		<li>bb code (forums)</li>
-		<li><input type="text" size="25" value="[img]<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>[/img]" readonly /></li>
+		<li><input type="text" size="25" value="[img]<?php echo IMAGES_URL . $_GET['id'] . '.' . $image['ext']; ?>[/img]" readonly /></li>
 		<li>linked bb code (forums)</li>
-		<li><input type="text" size="25" value="[url=<?php echo $view_url . $_GET['id']; ?>][img]<?php echo $images_url . $_GET['id'] . '.' . $image['ext']; ?>[/img][/url]" readonly /></li>
+		<li><input type="text" size="25" value="[url=<?php echo VIEW_URL . $_GET['id']; ?>][img]<?php echo IMAGES_URL . $_GET['id'] . '.' . $image['ext']; ?>[/img][/url]" readonly /></li>
 	</ul>
 
 	<ul id="info" class="box sidebar-box">
