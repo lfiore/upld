@@ -1,16 +1,9 @@
 <?php
 
-define('SITE_NAME', 'My awesome upload site'); // site name displayed in the header and FAQ/ToS
+define('SITE_NAME', 'upload site'); // site name displayed in the header and FAQ/ToS
 
-define('SITE_URL', 'mydomain.com'); // the domain ONLY for your site (i.e. without the "upld" folder)
-define('SCRIPT_PATH', 'upld'); // folder where the script is located (leave blank if it's in the root directory)
-
-// admin username
-define('ADMIN_USERNAME', 'admin');
-
-// admin password and salt - use "pass.html" in the "misc" folder to generate these values
-define('ADMIN_SALT', '');
-define('ADMIN_PASSWORD', '');
+define('SITE_URL', 'domain.com'); // the domain ONLY for your site (i.e. without the "upld" folder)
+define('SCRIPT_PATH', ''); // folder where the script is located (leave blank if it's in the root directory)
 
 // email for contact page
 define('CONTACT_EMAIL', 'contact@domain.com'); // the email on the contact page
@@ -22,7 +15,7 @@ define('REPORT_EMAIL', 'reports@domain.com'); // where emails should be sent if 
 define('FRIENDLY_URLS', false);
 
 define('DB_SERVER', 'localhost');
-define('DB_USER', 'test');
+define('DB_USER', 'user');
 define('DB_PASS', 'password');
 define('DB_NAME', 'upld');
 define('DB_PORT', 3306); // usually 3306 by default. If you don't know what this is, leave it alone and ask your hosting company if it doesn't work

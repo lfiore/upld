@@ -10,12 +10,14 @@ if (!defined('IN_SCRIPT'))
 
 <div class="box">
 
-	<p class="title">Admin login</p>
+	<p class="title">Log in</p>
+
+	<p>Log in to your account to manage your uploads</p>
 
 	<form name="login" method="POST" action="login.php">
-		<input name="username" type="text" size="40" placeholder="username..." />
-		<input name="password" type="password" size="40" placeholder="password..." />
-		<input type="submit" value="Log in" />
+		<input name="email" type="text" placeholder="email..." />
+		<input name="password" type="password" placeholder="password..." />
+		<input name="submit" type="submit" value="Log in" />
 	</form>
 
 </div>

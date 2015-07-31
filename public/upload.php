@@ -1,164 +1,243 @@
 <?php
 
-$start = microtime(true);
+require('config.php');
+require('common.php');
 
-function create_id()
+// both image and url submitted. wtf, let's get the hell out of here!
+if (isset($_FILES['image']) && isset($_POST['url']))
 {
-	$i = '';
+	exit_message('Please only choose one image to upload.');
+}
+
+// neither submitted - inform user and exit
+if (!isset($_FILES['image']) && !isset($_POST['url']))
+{
+	exit_message('Please choose either an image on your computer to upload or a remote image to download.');
+}
+
+$allowed_ext = [
+	'png',
+	'jpg',
+	'gif'
+];
+
+// user must have submitted either an image or URL
+// check which one and make sure it's valid
+// check for an uploaded image first
+if (isset($_FILES['image']))
+{
+	// user wants to upload via browser
+	// set variables - will check after
+	$size = $_FILES['image']['size'];
+	$ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+}
+
+elseif (isset($_POST['url']))
+{
+	// user wants to download a remote image
+	// make sure URL is valid and set variables - will check after
+	// is remote downloading enabled in conf.php?
+	if (ALLOW_REMOTE !== true)
+	{
+		// remote downloading is disabled - error and exit
+		exit_message('Remote downloading is not enabled on this installation');
+	}
+
+	// allowed URL schemes
+	$allowed_schemes = [
+		'http',
+		'https'
+	];
+
+	// check if URL is valid and http/https only
+	if (!filter_var($_POST['url'], FILTER_VALIDATE_URL) || (!in_array(parse_url($_POST['url'], PHP_URL_SCHEME), $allowed_schemes)))
+	{
+		// not a valid URL
+		exit_message('Sorry, this URL is invalid');
+	}
+
+	// looks good so far, download the image and make sure it's valid
+	$size = get_headers($_POST['url'], 1)['Content-Length'];
+	$ext = end(explode('.',$_POST['url']));
+}
+
+// OK, everything checks out so far
+// check size/ext
+if ($size > ALLOWED_SIZE)
+{
+	// file is too big
+	exit_message('Sorry, this file is too big');
+}
+
+// size is OK, make sure EXT is allowed
+if (!in_array($ext, $allowed_ext))
+{
+	// ext not allowed
+	exit_message('Sorry, this extension is not allowed.');
+}
+
+// size and ext are fine
+// let's set $image to either $_FILES['image'] or $_POST['url'] and check if they're valid
+if (isset($_FILES['image']))
+{
+	if (!getimagesize($_FILES['image']['tmp_name']))
+	{
+		exit_message('Sorry, this does not appear to be a valid image');
+	}
+
+	$image = $_FILES['image']['tmp_name'];
+}
+
+elseif (isset($_POST['url']))
+{
+	$image = file_get_contents($_POST['url'], NULL, NULL, NULL, $size);
+
+	if (!imagecreatefromstring($image))
+	{
+		exit_message('Sorry, this does not appear to be a valid image');
+	}
+}
+
+// everything looks good so far! images are valid, size and ext check out
+// generate an ID, move files and insert into DB
+
+// generate ID (and make sure it doesn't exist)
+require('db.php');
+
+// prepare query
+$exists = mysqli_prepare($db, 'SELECT EXISTS(SELECT 1 FROM `images` WHERE `id` = ?)');
+
+// create ID and check if it exists in the DB
+do
+{
+	// create ID
+	$id = '';
 	$chars = 'ACDEFHJKLMNPQRTUVWXYZabcdefghijkmnopqrstuvwxyz23479';
 	for ($i = 0; $i < 5; ++$i)
 	{
 		$id .= $chars[mt_rand(0, 50)];
 	}
-	return $id;
+	// $id is now set to a randomly generated ID
+
+	// query DB to see if ID exists
+	mysqli_stmt_bind_param($exists, "s", $id);
+	mysqli_stmt_execute($exists);
+	++$db_queries;
+	mysqli_stmt_bind_result($exists, $result);
+	mysqli_stmt_fetch($exists);
+	mysqli_stmt_close($exists);
+}
+while ($result === 1);
+
+// write image (this is different depending on whether it's an upload or remote download)
+if (isset($_FILES['image']))
+{
+	$image_path = 'images/' . $id . '.' . $ext;
+
+	// write image
+	move_uploaded_file($image, $image_path);
+}
+else if (isset($_POST['url']))
+{
+	// write image
+	file_put_contents('images/' . $id . '.' . $ext, $image);
 }
 
-require('config.php');
-require('common.php');
-
-$allowed_ext = [
-	'png',
-	'jpg',
-	'gif',
-	'bmp'
-];
-
-// determine if user selected a local or remote image 
-if (isset($_FILES['image']) && !isset($_POST['url']))
+// create thumbnail (only bother if user is logged in)
+if ($_SESSION['user'])
 {
-	// user wants to upload via browser
-
-	// get image info
-	$image = $_FILES['image'];
-
-	// check if image is within size limit
-	if ($image['size'] <= ALLOWED_SIZE)
+	if (isset($_FILES['image']))
 	{
-		// image is within size limit
-
-		// get image ext
-		$ext = pathinfo($image['name'], PATHINFO_EXTENSION);
-
-		// check if image is correct extension
-		if (in_array($ext, $allowed_ext))
+		// set source for thumb
+		switch ($ext)
 		{
-			// image size and ext are OK
-			require('db.php');
+			case 'jpg':
+				$thumb = imagecreatefromjpeg($image_path);
+			break;
 
-			do
-			{
-				$id = create_id();
-				$exists = mysqli_query($db, 'SELECT EXISTS(SELECT 1 FROM `images` WHERE `id` = "' . $id . '")');
-				++$db_queries;
-			}
-			while (mysqli_fetch_assoc($exists) === 1);
+			case 'png':
+				$thumb = imagecreatefrompng($image_path);
+			break;
 
-			mysqli_free_result($exists);
+			case 'gif':
+				$thumb = imagecreatefromgif($image_path);
+			break;
+		}
+	}
+	else if (isset($_POST['url']))
+	{
+		// set source for thumb
+		$thumb = imagecreatefromstring($image);
+	}
 
-			// write image
-			move_uploaded_file($image['tmp_name'], 'images/' . $id . '.' . $ext);
+	$width = imagesx($thumb);
+	$height = imagesy($thumb);
 
-			// add to DB
-			mysqli_query($db, 'INSERT INTO `images` (`id`, `ext`, `ip`) VALUES ("' . $id . '", "' . $ext . '", "' . $_SERVER['REMOTE_ADDR'] . '")');
-			++$db_queries;
-
+	if ($width > 300 || $height > 300)
+	{
+		if ($width > $height)
+		{
+			$new_width = 300;
+			// if image height is below 300, don't bother resizing
+			$new_height = floor($height * ($new_width / $width));
 		}
 		else
 		{
-			exit_message('Hmm, the image you uploaded has an incorrect extension and is not allowed.');
+			$new_height = 300;
+			// if image width is below 300, don't bother resizing
+			$new_width = floor($width * ($new_height / $height));
 		}
 	}
 	else
 	{
-		exit_message('Hmm, the image you have uploaded is too large.');
+		$new_height = $height;
+		$new_width = $width;
 	}
-}
-elseif (isset($_POST['url']) && !isset($_FILES['image']))
-{
-	// user wants to download a remote image
-	// is remote downloading enabled in conf.php?
-	if (ALLOW_REMOTE === true)
+
+	$new_thumb = imagecreatetruecolor($new_width, $new_height);
+
+	switch ($ext)
 	{
-		// remote downloading is enabled
+		case 'png':
+			imagefill($new_thumb, 0, 0, imagecolorallocate($new_thumb, 255, 255, 255));
+			imagealphablending($background, TRUE);
+		break;
 
-		// check if URL is valid and http/https only
-		if (filter_var($_POST['url'], FILTER_VALIDATE_URL) && ((parse_url($_POST['url'], PHP_URL_SCHEME) === 'http') || (parse_url($_POST['url'], PHP_URL_SCHEME) === 'https')))
-		{
-			// VALID URL SUBMITTED
-
-			// check ext
-			$ext = end(explode('.',$_POST['url']));
-			if (in_array($ext, $allowed_ext))
-			{
-				// EXT IS OK
-
-				// check size remotely
-				$size = get_headers($_POST['url'], 1)['Content-Length'];
-				if ($size <= ALLOWED_SIZE)
-				{
-					// SIZE IS WITHIN LIMIT
-
-					// download file
-					$image = file_get_contents($_POST['url'], NULL, NULL, NULL, $size);
-
-					// check if downloaded data is an image
-					if (imagecreatefromstring($image))
-					{
-						// VALID IMAGE
-
-						// generate ID (and make sure it doesn't exist)
-						require('db.php');
-
-						do
-						{
-							$id = create_id();
-							$exists = mysqli_query($db, 'SELECT EXISTS(SELECT 1 FROM `images` WHERE `id` = "' . $id . '")');
-							++$db_queries;
-						}
-						while (mysqli_fetch_assoc($exists) === 1);
-
-						mysqli_free_result($exists);
-
-						// write image
-						file_put_contents('images/' . $id . '.' . $ext, $image);
-
-						// add to DB
-						mysqli_query($db, 'INSERT INTO `images` (`id`, `ext`, `ip`) VALUES ("' . $id . '", "' . $ext . '", "' . $_SERVER['REMOTE_ADDR'] . '")');
-						++$db_queries;
-					}
-					else
-					{
-						exit_message('Hmm, the file you submitted does not appear to be a valid image file.');
-					}
-				}
-				else
-				{
-					exit_message('Hmm, the image you have selected is too large.');
-				}
-			}
-			else
-			{
-				exit_message('Hmm, the image you selected has an incorrect extension and is not allowed.');
-			}
-		}
-		else
-		{
-			exit_message('Please submit a valid http/https URL only');
-		}
+		case 'gif':
+			$new_thumb = imagecolorallocate($thumb, 0, 0, 0);
+			imagecolortransparent($thumb, $new_thumb);
+		break;
 	}
-	else
-	{
-		exit_message('Remote downloading is not enabled');
-	}
+	
+	imagecopyresized($new_thumb, $thumb, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	imagedestroy($thumb);	
+
+	imagejpeg($new_thumb, 'thumbs/' . $id . '.jpg', 30);
+	imagedestroy($new_thumb);
 }
-elseif ($_FILES['image'] && $_POST['url'])
+
+// check if user is logged in or not and write info to DB
+if (!isset($_SESSION['user']))
 {
-	exit_message('Please only choose one image to upload.');
+	$query = mysqli_prepare($db, 'INSERT INTO `images` (`id`, `ext`, `ip`) VALUES (?, ?, ?)');
+	mysqli_stmt_bind_param($query, 'sss', $id, $ext, $ip);
 }
 else
 {
-	exit_message('Please choose either an image on your computer to upload or a remote image to download.');
+	$query = mysqli_prepare($db, 'INSERT INTO `images` (`id`, `ext`, `user`, `ip`) VALUES (?, ?, ?, ?)');
+	mysqli_stmt_bind_param($query, 'ssis', $id, $ext, $user, $ip);
 }
 
-header('location: ' . VIEW_URL . $id);
+// set data for query
+$user = $_SESSION['user'];
+$ip = $_SERVER['REMOTE_ADDR'];
 
+// insert data
+mysqli_stmt_execute($query);
+++$db_queries;
+mysqli_stmt_close($query);
+
+// close connection
+mysqli_close($db);
+
+header('location: ' . VIEW_URL . $id);

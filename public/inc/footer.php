@@ -11,7 +11,7 @@ if (!defined('IN_SCRIPT'))
 	</div>
 
 	<div id="footer">
-		<a href="login.php">Admin login</a>
+		<a href="faq.php">FAQ</a>|<a href="tc.php">Terms &amp; Conditions</a>|<a href="contact.php">Contact</a>
 		<!-- page generated in <?php echo round((microtime(true) - $start), 5); ?> seconds with <?php echo ($db_queries ? $db_queries : '0'); ?> DB quer<?php echo ($db_queries === 1 ? 'y' : 'ies'); ?> -->
 	</div>
 

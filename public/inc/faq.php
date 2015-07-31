@@ -31,7 +31,7 @@ $size = round($allowed_size, 1) . $units[$i];
 		<li>Yes! It is 100% free to use</li>
 
 		<li>Which types of image can I upload?</li>
-		<li>You can upload images with the following extensions: <span class="black">PNG, JPG, PNG, GIF</span></li>
+		<li>You can upload images with the following extensions: <span class="black">PNG, JPG, GIF</span></li>
 
 		<li>Can I upload big images?</li>
 		<li>Yes! You can upload any image up to <span class="black"><?php echo $size; ?>B</span> in size</li>

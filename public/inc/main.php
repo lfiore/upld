@@ -22,7 +22,14 @@ $size = round($allowed_size, 1) . $units[$i];
 ?>
 
 		<div class="box">
-			Welcome to <span class="black"><?php echo SITE_NAME; ?></span>, the free online image host. Simply click the button below to start uploading!
+
+			<p class="title">Welcome to <?php echo SITE_NAME; ?></p>
+
+			<ul>
+				<li><span class="black"><?php echo SITE_NAME; ?></span> is a free, online image host. Simply click the button below to start uploading!</li>
+				<li>Before uploading, you can register an account (or log in if you already have one) and manager your uploads later</li>
+			</ul>
+
 		</div>
 
 		<div class="box">
@@ -31,7 +38,23 @@ $size = round($allowed_size, 1) . $units[$i];
 
 			<ul>
 				<li>It's completely <span class="black">free</span>!</li>
-				<li>The following image types are allowed: <span class="black">PNG, JPG, PNG, GIF</span></li>
+				<li>You can create an account and <span class="black">manage all of your uploads</span></li>
+<?php
+
+if (ALLOW_REMOTE === true)
+{
+
+?>
+
+				<li><span class="black">Download files remotely!</span></li>
+
+<?php
+
+}
+
+?>
+
+				<li>The following image types are allowed: <span class="black">PNG, JPG, GIF</span></li>
 				<li>The files may be up to <span class="black"><?php echo $size ?>B</span> in size</li>
 <?php
 
