@@ -1,3 +1,8 @@
+Please read if updating from previous version
+=============================================
+
+A user account feature has been added, so as well as replacing the script files, you MUST run upld.sql to add a new table.
+
 upld
 ====
 
