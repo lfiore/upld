@@ -144,7 +144,7 @@ else if (isset($_POST['url']))
 }
 
 // create thumbnail (only bother if user is logged in)
-if ($_SESSION['user'])
+if (isset($_SESSION['user']))
 {
 	if (isset($_FILES['image']))
 	{
@@ -200,7 +200,7 @@ if ($_SESSION['user'])
 	{
 		case 'png':
 			imagefill($new_thumb, 0, 0, imagecolorallocate($new_thumb, 255, 255, 255));
-			imagealphablending($background, TRUE);
+			imagealphablending($new_thumb, TRUE);
 		break;
 
 		case 'gif':
