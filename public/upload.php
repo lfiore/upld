@@ -173,17 +173,17 @@ if ($_SESSION['user'])
 	$width = imagesx($thumb);
 	$height = imagesy($thumb);
 
-	if ($width > 300 || $height > 300)
+	if ($width > 200 || $height > 200)
 	{
 		if ($width > $height)
 		{
-			$new_width = 300;
+			$new_width = 200;
 			// if image height is below 300, don't bother resizing
 			$new_height = floor($height * ($new_width / $width));
 		}
 		else
 		{
-			$new_height = 300;
+			$new_height = 200;
 			// if image width is below 300, don't bother resizing
 			$new_width = floor($width * ($new_height / $height));
 		}
