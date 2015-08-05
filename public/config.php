@@ -11,7 +11,7 @@ define('CONTACT_EMAIL', 'contact@lfiore.co.uk'); // the email on the contact pag
 define('REPORT_EMAIL', 'reports@lfiore.co.uk'); // where emails should be sent if someone reports an image
 
 // use domain.com/imageID and i.domain.com/imageID.ext instead of domain.com/view.php?id=imageID and domain.com/images/imageID.ext for shorter URLs?
-// WARNING: ONLY enable this if you have configured your webserver to rewrite URLs - see README.txt
+// WARNING: ONLY enable this if you have configured your webserver to rewrite URLs - see INSTALL.txt
 define('FRIENDLY_URLS', false);
 
 define('DB_SERVER', 'localhost');

@@ -1,32 +1,65 @@
------ Installation steps -----
+Downloading
+===========
 
-1) Import the upld.sql file to your database through phpMyAdmin (or commandline if you know how)
+First follow the steps below to download the files
 
-2) Amend the config.php file in the "public" folder
+- Download the zip file from here (via GitHub)
+- Unzip the folder
+- Move the files from the public folder to the folder on your server where you want upld installed
 
-3) Upload the files in the "public" folder
+Setting everything up
+---------------------
 
-4) chmod the "images" and "thumbs" folders to 0777
+Once the files have been copied to your chosen location on the server, follow the steps below to set it up
 
-5) register a new account for yourself
+- Create a new database for the script
+- Import upld.sql into the new database
+- Update the config.php file with all of your details
+- Set the permissions on the images and thumbs folders to 0777
+- Head to your domain and register a new account
+- In the users table of your database, amend the value of admin to 1
 
-6) using phpMyAdmin (or commandline) find the new account you registered and amend the "admin" field to "1"
+Configuring your webserver for short URLs
+-----------------------------------------
 
------ (OPTIONAL) URL rewrite settings for lighttpd -----
+Everything should now be set up correctly, but there are some further steps below if you want to use short URLs with lighttpd/Apache
 
+Lighttpd
+--------
+
+If the script is installed in the root directory of the webserver, add the following to your lighttpd.conf file
+
+-----------------------------------------------------------------------------------------------
 $HTTP["host"] == "domain.com" {
-	url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/www/view.php?id=$1" )
-	# if you have the scripts in a folder, i.e. "folderName" then use amend the rule like below
-	url.rewrite = ( "^folderName/([a-zA-Z0-9]{5})$" => "/path/to/upld/script/from/root/view.php?id=$1" )
+	url.rewrite = ( "^/([a-zA-Z0-9]{5})$" => "/view.php?id=$1" )
 }
 
 $HTTP["host"] == "i.domain.com" {
 	server.document-root = "/path/to/upld/script/from/root/images/"
 }
+-----------------------------------------------------------------------------------------------
 
------ (OPTIONAL) virtual host settings for i.domain.com with Apache -----
+If your script is installed in a folder, and not the root directory of your webserver, amend the following and add it to your lighttpd.conf file
 
+-----------------------------------------------------------------------------------------------
+$HTTP["host"] == "domain.com" {
+	# if you have the scripts in a folder, i.e. "folderName" then use amend the rule like below
+	url.rewrite = ( "^folderName/([a-zA-Z0-9]{5})$" => "/folderName/view.php?id=$1" )
+}
+
+$HTTP["host"] == "i.domain.com" {
+	server.document-root = "/path/to/upld/script/from/root/folderName/images/"
+}
+-----------------------------------------------------------------------------------------------
+
+Apache
+------
+
+Add the following to your Apache config file
+
+-----------------------------------------------------------------------------------------------
 <VirtualHost *:80>
     DocumentRoot /path/to/upld/script/from/root/images
     ServerName i.domain.com
 </VirtualHost>
+-----------------------------------------------------------------------------------------------

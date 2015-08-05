@@ -1,15 +1,19 @@
-Please read if updating from previous version
-=============================================
-
-A user account feature has been added, so as well as replacing the script files, you MUST run upld.sql to add a new table.
-
 upld
 ====
 
-An image hosting script written in PHP with MySQL for the DB. Has support for short URLs
+An image hosting script written in PHP with MySQLi for the DB.
 
-You can test the script out at http://upld.eu/
+Includes the following features
 
-http://lfiore.co.uk/
+* Completely free to download
+* Easy to modify
+* Support for short URLs
+* User account support
+* Support for remote downloads
+* Report/delete features
+
+You can demo the script at http://upld.eu/
+
+For more info (screenshots, installation steps, etc.) check http://upld.lfiore.co.uk/
 
 http://github.com/lfiore/upld/
