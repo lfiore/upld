@@ -14,6 +14,6 @@ Includes the following features
 
 You can demo the script at http://upld.eu/
 
-For more info (screenshots, installation steps, etc.) check http://upld.lfiore.co.uk/
+For more info (screenshots, installation steps, etc.) check http://docs.upld.eu/
 
 http://github.com/lfiore/upld/
