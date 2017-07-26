@@ -3,6 +3,12 @@
 require('config.php');
 require('common.php');
 
+// see if anonymous uploads has been disabled, and check if the user is logged in
+if (ANON_UPLOADS === false && !isset($_SESSION['user']))
+{
+	exit_message('Anonymous uploads have been disabled, please register or log in to upload');
+}
+
 // both image and url submitted. wtf, let's get the hell out of here!
 if (isset($_FILES['image']) && isset($_POST['url']))
 {
@@ -54,6 +60,12 @@ elseif (isset($_POST['url']))
 	{
 		// not a valid URL
 		exit_message('Sorry, this URL is invalid');
+	}
+
+	// if whitelisting is enabled, make sure it's an allowed domain
+	if ((URL_WHITELIST === true) && (!in_array(parse_url($_POST['url'], PHP_URL_HOST), $allowed_urls)))
+	{
+		exit_message('Sorry, downloads from this domain have not been allowed by the administrator');
 	}
 
 	// looks good so far, download the image and make sure it's valid
