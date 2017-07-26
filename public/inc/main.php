@@ -75,6 +75,13 @@ if (FRIENDLY_URLS === true)
 			</ul>
 		</div>
 
+<?php
+
+if ((ANON_UPLOADS === true) || ((ANON_UPLOADS === false) && (isset($_SESSION['user']))))
+{
+
+?>
+
 		<div id="select-image" class="box">
 			click here to select an image
 		</div>
@@ -89,12 +96,13 @@ if (FRIENDLY_URLS === true)
 
 <?php
 
-if (ALLOW_REMOTE === true)
-{
+	if (ALLOW_REMOTE === true)
+	{
 
 ?>
 
 		<form id="url-form" name="remote-url" method="POST" action="upload.php">
+
 			<div id="download-url" class="box">
 				<input id="image-url-submit" type="submit" value="download remote image" />
 			</div>
@@ -103,6 +111,18 @@ if (ALLOW_REMOTE === true)
 				<input id="select-url-input" name="url" type="text" placeholder="Want to download your image remotely? Paste the link here (http://)" />
 			</div>
 		</form>
+
+<?php
+
+	}
+
+}
+else
+{
+
+?>
+
+		<div class="box">Anonymous uploads have been disabled, please <a href="register.php">create an account</a> or <a href="login.php">log in</a> to upload</div>
 
 <?php
 
