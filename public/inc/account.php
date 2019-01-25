@@ -27,7 +27,7 @@ while (mysqli_stmt_fetch($images))
 			<a href="<?php echo VIEW_PATH . $id; ?>"><img class="user-image" src="thumbs/<?php echo $id . '.jpg'; ?>" alt="<?php echo $id; ?>" /></a>
 			<ul class="image-actions">
 				<li>uploaded <?php echo $time; ?></li>
-				<li><a class="delete" href="delete.php?id=<?php echo $id; ?>">DELETE image</a></li>
+				<li><a class="delete" href="delete.php?id=<?php echo $id . '&csrf=' . $_SESSION['csrf']; ?>">DELETE image</a></li>
 			</ul>
 		</div><!--
 

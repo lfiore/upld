@@ -56,7 +56,7 @@ if (isset($_SESSION['admin']) || (isset($_SESSION['user']) && ($_SESSION['user']
 
 ?>
 
-		<li><a class="delete" href="delete.php?id=<?php echo $id; ?>">DELETE this image</a></li>
+		<li><a class="delete" href="delete.php?id=<?php echo $id . '&csrf=' . $_SESSION['csrf']; ?>">DELETE this image</a></li>
 
 <?php
 
@@ -67,18 +67,18 @@ else
 
 ?>
 
-		<li><a href="report.php?id=<?php echo $id; ?>">report this image</a></li>
+		<li><a href="report.php?id=<?php echo $id . '&csrf=' . $_SESSION['csrf']; ?>">report this image</a></li>
 
 <?php
 
 }
 
-if (isset($_SESSION['admin']))
+if (isset($_SESSION['admin']) && $user != NULL)
 {
 
 ?>
 
-		<li><a id="ban" href="ban.php?id=<?php echo $user; ?>">BAN user and DELETE ALL IMAGES</a></li>
+		<li><a id="ban" href="ban.php?id=<?php echo $user . '&csrf=' . $_SESSION['csrf']; ?>">BAN user and DELETE ALL IMAGES</a></li>
 
 <?php
 
