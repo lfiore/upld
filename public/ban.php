@@ -3,6 +3,11 @@
 require('config.php');
 require('common.php');
 
+if ($_SESSION['csrf'] !== $_GET['csrf'])
+{
+	exit_message('CSRF token mismatch');
+}
+
 // make sure user is logged in (for non-admins, we will verify their ID later)
 if (!isset($_SESSION['admin']))
 {
@@ -19,19 +24,27 @@ $id = $_GET['id'];
 
 require('db.php');
 
-$exists = mysqli_prepare($db, 'SELECT EXISTS(SELECT 1 FROM `users` WHERE `id` = ?)');
+// check if user exists and/or is admin
+$exists = mysqli_prepare($db, 'SELECT `admin` FROM `users` WHERE `id` = ?');
 
 // query DB to see if ID exists
 mysqli_stmt_bind_param($exists, 'i', $id);
 mysqli_stmt_execute($exists);
 ++$db_queries;
+mysqli_stmt_store_result($exists);
+
+if (mysqli_stmt_num_rows($exists) === 0)
+{
+	exit_message('No accounts exist with that user ID');
+}
+
 mysqli_stmt_bind_result($exists, $result);
 mysqli_stmt_fetch($exists);
 mysqli_stmt_close($exists);
 
-if ($result === 0)
+if ($result == 1)
 {
-	exit_message('No accounts exist with that user ID');
+	exit_message('You cannot ban an admin');
 }
 
 // ban user in DB

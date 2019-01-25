@@ -3,6 +3,8 @@
 require('config.php');
 require('common.php');
 
+$_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(32));
+
 if (!isset($_SESSION['user']))
 {
 	exit_message('You are no authorised to access this page. Please log in.');

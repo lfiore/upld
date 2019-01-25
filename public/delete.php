@@ -3,6 +3,11 @@
 require('config.php');
 require('common.php');
 
+if ($_SESSION['csrf'] !== $_GET['csrf'])
+{
+	exit_message('CSRF token mismatch');
+}
+
 // make sure user is logged in (for non-admins, we will verify their ID later)
 if (!isset($_SESSION['user']))
 {
