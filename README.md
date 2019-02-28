@@ -12,8 +12,8 @@ Includes the following features
 * Support for remote downloads
 * Report/delete features
 
-You can demo the script at http://upld.eu/
+You can demo the script at http://upld.uk/
 
-For more info (screenshots, installation steps, etc.) check http://docs.upld.eu/
+For more info (screenshots, installation steps, etc.) check http://docs.upld.uk/
 
 http://github.com/lfiore/upld/
