@@ -24,6 +24,10 @@ if (!isset($_FILES['image']) && !isset($_POST['url']))
 $allowed_ext = [
 	'png',
 	'jpg',
+	'jpeg',
+	'tiff',
+	'webp',
+	'svg',
 	'gif'
 ];
 
@@ -68,9 +72,10 @@ elseif (isset($_POST['url']))
 		exit_message('Sorry, downloads from this domain have not been allowed by the administrator');
 	}
 
-	// looks good so far, download the image and make sure it's valid
-	$size = get_headers($_POST['url'], 1)['Content-Length'];
-	$ext = end(explode('.',$_POST['url']));
+	// Get the MIME type of the remote image, and extract only the EXT
+        $tmp_ext = getimagesize($_POST['url']);
+	$ext = $tmp_ext['mime'];
+	$ext = str_replace("image/", "", $ext);
 }
 
 // OK, everything checks out so far
