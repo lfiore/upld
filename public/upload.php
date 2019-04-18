@@ -73,6 +73,7 @@ elseif (isset($_POST['url']))
 	}
 
 	// Get the MIME type of the remote image, and extract only the EXT
+	$size = get_headers($_POST['url'], 1)['Content-Length'];
         $tmp_ext = getimagesize($_POST['url']);
 	$ext = $tmp_ext['mime'];
 	$ext = str_replace("image/", "", $ext);
