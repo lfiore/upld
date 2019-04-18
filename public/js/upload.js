@@ -1,3 +1,9 @@
+const fileInput = document.getElementById("image-input");
+window.addEventListener('paste', e => {
+ fileInput.files = e.clipboardData.files;
+$('#upload-form').submit();
+});
+
 $('#image-input').on('change', function()
 {
 	var selectImage = $('#select-image');
