@@ -67,20 +67,18 @@ else
 
 ?>
 
-		<li><a href="report.php?id=<?php echo $id; ?>">report this image</a></li>
+		<li><a href="report.php?id=<?php echo $id . '&csrf=' . $_SESSION['csrf']; ?>">report this image</a></li>
 
 <?php
 
 }
 
-if (isset($_SESSION['admin']))
+if (isset($_SESSION['admin']) && $user != NULL)
 {
 
 ?>
 
 		<li><a id="ban" href="ban.php?id=<?php echo $user . '&csrf=' . $_SESSION['csrf']; ?>">BAN user and DELETE ALL IMAGES</a></li>
-		<li><a id="moderate-user" href="moderate.php?id=<?php echo $user; ?>">view user's other uploaded images</a>
-		<li><a id="moderate-ip" href="moderate.php?ip=<?php echo $ip; ?>">view all images uploaded with this IP address</a>
 
 <?php
 
