@@ -1,7 +1,11 @@
 const fileInput = document.getElementById("image-input");
 window.addEventListener('paste', e => {
  fileInput.files = e.clipboardData.files;
-$('#upload-form').submit();
+if (e.clipboardData.files) {
+	if (confirm("Detected paste from the clipboard. Do you want to upload it directly as an image?")) {
+		$('#upload-form').submit();
+	} 	
+}
 });
 
 $('#image-input').on('change', function()
