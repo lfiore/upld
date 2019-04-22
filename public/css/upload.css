@@ -305,7 +305,3 @@ form[name='login'] input[type='submit'], form[name='register'] input[type='submi
     margin: 0 10px;
     color: #999;
 }
-
-#ban {
-    color: #F33;
-}
