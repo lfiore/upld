@@ -68,7 +68,15 @@ mysqli_stmt_bind_param($query, 'ssss', $email, $salt, $password, $ip);
 // set data for query
 $salt = uniqid(true);
 $password = hash('sha256', $salt . $_POST['password']);
-$ip = $_SERVER['REMOTE_ADDR'];
+
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP']))
+{
+	$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+}
+else
+{
+	$ip = $_SERVER['REMOTE_ADDR'];
+}
 
 // insert data
 mysqli_stmt_execute($query);

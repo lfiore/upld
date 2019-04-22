@@ -36,10 +36,20 @@ $allowed_ext = [
 // check for an uploaded image first
 if (isset($_FILES['image']))
 {
-	// user wants to upload via browser
-	// set variables - will check after
-	$size = $_FILES['image']['size'];
-	$ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+	if ($_FILES['image']['error'] == 0)
+	{
+		// user wants to upload via browser
+		// set variables - will check after
+		$size = $_FILES['image']['size'];
+		$ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+	}
+
+	else
+	{
+		exit_message('File upload error (error code: ' . $_FILES['image']['error'] . ')<br /><br />See here for error codes: <a href="http://php.net/manual/en/features.file-upload.errors.php" target="_blank">http://php.net/manual/en/features.file-upload.errors.php</a>');
+	}
+
 }
 
 elseif (isset($_POST['url']))
@@ -72,11 +82,11 @@ elseif (isset($_POST['url']))
 		exit_message('Sorry, downloads from this domain have not been allowed by the administrator');
 	}
 
-	// Get the MIME type of the remote image, and extract only the EXT
+	// looks good so far, download the image and make sure it's valid
 	$size = get_headers($_POST['url'], 1)['Content-Length'];
-        $tmp_ext = getimagesize($_POST['url']);
+	$tmp_ext = getimagesize($_POST['url']);
 	$ext = $tmp_ext['mime'];
-	$ext = str_replace("image/", "", $ext);
+	$ext = str_replace('image/', '', $ext);
 }
 
 // OK, everything checks out so far
@@ -96,6 +106,7 @@ if (!in_array($ext, $allowed_ext))
 
 // size and ext are fine
 // let's set $image to either $_FILES['image'] or $_POST['url'] and check if they're valid
+
 if (isset($_FILES['image']))
 {
 	if (!getimagesize($_FILES['image']['tmp_name']))
@@ -248,7 +259,14 @@ else
 
 // set data for query
 $user = $_SESSION['user'];
-$ip = $_SERVER['REMOTE_ADDR'];
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP']))
+{
+	$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+}
+else
+{
+	$ip = $_SERVER['REMOTE_ADDR'];
+}
 
 // insert data
 mysqli_stmt_execute($query);
