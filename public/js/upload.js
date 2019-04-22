@@ -1,7 +1,21 @@
-const fileInput = document.getElementById("image-input");
-window.addEventListener('paste', e => {
- fileInput.files = e.clipboardData.files;
-$('#upload-form').submit();
+// drag to upload
+var fileInput = document.getElementById('image-input');
+var urlInput = document.getElementById('select-url-input');
+
+window.addEventListener('paste', e =>
+{
+	if (e.clipboardData.getData('text/plain') !== '')
+	{
+		// contains text, could be a URL
+		urlInput.value = e.clipboardData.getData('text/plain');
+		$('#url-form').submit();
+	}
+	else
+	{
+		// contains a file
+		fileInput.files = e.clipboardData.files;
+		$('#upload-form').submit();
+	}
 });
 
 $('#image-input').on('change', function()
