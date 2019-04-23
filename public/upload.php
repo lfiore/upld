@@ -24,10 +24,6 @@ if (!isset($_FILES['image']) && !isset($_POST['url']))
 $allowed_ext = [
 	'png',
 	'jpg',
-	'jpeg',
-	'tiff',
-	'webp',
-	'svg',
 	'gif'
 ];
 
@@ -259,14 +255,7 @@ else
 
 // set data for query
 $user = $_SESSION['user'];
-if (isset($_SERVER['HTTP_CF_CONNECTING_IP']))
-{
-	$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-}
-else
-{
-	$ip = $_SERVER['REMOTE_ADDR'];
-}
+$ip = IP;
 
 // insert data
 mysqli_stmt_execute($query);

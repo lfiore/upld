@@ -32,8 +32,17 @@ define('ANON_UPLOADS', true);
 // set to true to only allow image downloads from whitelisted URLs (below)
 define('URL_WHITELIST', false);
 
+// set to true if you are using cloudflare, otherwise you may end up with cloudflare IP addresses rather than the user's real address
+// setting this to true will block all traffic that doesn't originate from cloudflare to prevent spoofing, but that's how cloudflare works and shouldn't cause any problems
+define('CLOUDFLARE', false);
+
+// by default thumbnails are only created when a logged in user uploads something
+// this means that if you view images uploaded by IP address, some thumbnails won't show up, because the user wasn't logged in
+// having this set to true will create thumbnails when you moderate a user
+// this could take a little while depending on the amount of images the user has, and the power of the server, so you can disable this if needed, you will still be able to view uploads
+define('CREATE_THUMBS_IP', true);
+
 $allowed_urls = [
 	'i.imgur.com',
 	'i.upld.eu'
 ];
-

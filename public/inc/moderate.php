@@ -44,6 +44,75 @@ else
 while (mysqli_stmt_fetch($images))
 {
 
+	if (CREATE_THUMBS_IP === true)
+	{
+		if (!file_exists('thumbs/' . $id . '.jpg'))
+
+			// set image path
+			$image_path = 'images/' . $id . '.' . $ext;
+
+			// set source for thumb
+			switch ($ext)
+			{
+				case 'jpg':
+					$thumb = imagecreatefromjpeg($image_path);
+				break;
+
+				case 'png':
+					$thumb = imagecreatefrompng($image_path);
+				break;
+
+				case 'gif':
+					$thumb = imagecreatefromgif($image_path);
+				break;
+			}
+
+		$width = imagesx($thumb);
+		$height = imagesy($thumb);
+
+		if ($width > 200 || $height > 200)
+		{
+			if ($width > $height)
+			{
+				$new_width = 200;
+				// if image height is below 300, don't bother resizing
+				$new_height = floor($height * ($new_width / $width));
+			}
+			else
+			{
+				$new_height = 200;
+				// if image width is below 300, don't bother resizing
+				$new_width = floor($width * ($new_height / $height));
+			}
+		}
+		else
+		{
+			$new_height = $height;
+			$new_width = $width;
+		}
+
+		$new_thumb = imagecreatetruecolor($new_width, $new_height);
+
+		switch ($ext)
+		{
+			case 'png':
+				imagefill($new_thumb, 0, 0, imagecolorallocate($new_thumb, 255, 255, 255));
+				imagealphablending($new_thumb, TRUE);
+			break;
+
+			case 'gif':
+				$new_thumb = imagecolorallocate($thumb, 0, 0, 0);
+				imagecolortransparent($thumb, $new_thumb);
+			break;
+		}
+		
+		imagecopyresized($new_thumb, $thumb, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+		imagedestroy($thumb);	
+
+		imagejpeg($new_thumb, 'thumbs/' . $id . '.jpg', 30);
+		imagedestroy($new_thumb);
+	}
+
 ?>
 
 		--><div class="user-image-box">

@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `images` (
   `id` char(5) NOT NULL,
-  `ext` char(6) NOT NULL,
+  `ext` char(3) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` smallint(5) unsigned DEFAULT NULL,
   `ip` varchar(39) NOT NULL,
