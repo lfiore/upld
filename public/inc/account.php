@@ -14,6 +14,48 @@ if (!defined('IN_SCRIPT'))
 
 	<p>Welcome to your account. You can view all of your uploads here, see the upload time and delete them</p>
 
+<?php
+
+if (PAGINATION > 0)
+{
+
+?>
+
+	<div id="pagination">
+
+<?php
+
+if (($page - 1) > 0)
+{
+	echo '<a href="?page=1">First</a> <a href="?page=' . ($page - 1) . '">Previous</a> ';	
+}
+
+for ($i = 1; $i <= $pages_count; ++$i)
+{
+	if ($i == $page)
+	{
+		echo $page;
+	}
+	else
+	{
+		echo '<a href="?page=' . $i . '"> ' . $i . ' </a>';
+	}
+}
+
+if (($page + 1) <= $pages_count)
+{
+	echo ' <a href="?page=' . ($page + 1) . '">Next</a> <a href="?page=' . $pages_count . '">Last</a>';
+}
+
+?>
+	</div>
+
+<?php
+
+}
+
+?>
+
 	<div id="user-images"><!--
 
 <?php

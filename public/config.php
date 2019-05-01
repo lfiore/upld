@@ -29,9 +29,6 @@ define('ALLOWED_SIZE', 2000000); // 1000 = 1 kilobyte, 1000000 = 1 megabyte
 // allow anonymous uploads? set to 0 false to only allow logged in members to upload
 define('ANON_UPLOADS', true);
 
-// set to true to only allow image downloads from whitelisted URLs (below)
-define('URL_WHITELIST', false);
-
 // set to true if you are using cloudflare, otherwise you may end up with cloudflare IP addresses rather than the user's real address
 // setting this to true will block all traffic that doesn't originate from cloudflare to prevent spoofing, but that's how cloudflare works and shouldn't cause any problems
 define('CLOUDFLARE', false);
@@ -41,6 +38,13 @@ define('CLOUDFLARE', false);
 // having this set to true will create thumbnails when you moderate a user
 // this could take a little while depending on the amount of images the user has, and the power of the server, so you can disable this if needed, you will still be able to view uploads
 define('CREATE_THUMBS_IP', true);
+
+// how many images to display per page
+// set to 0 to disable
+define('PAGINATION', 15);
+
+// set to true to only allow image downloads from whitelisted URLs (below)
+define('URL_WHITELIST', false);
 
 $allowed_urls = [
 	'i.imgur.com',
