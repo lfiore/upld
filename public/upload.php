@@ -24,7 +24,8 @@ if (!isset($_FILES['image']) && !isset($_POST['url']))
 $allowed_ext = [
 	'png',
 	'jpg',
-	'gif'
+	'gif',
+	'jpeg'
 ];
 
 // user must have submitted either an image or URL
@@ -177,6 +178,7 @@ if (isset($_SESSION['user']))
 		switch ($ext)
 		{
 			case 'jpg':
+			case 'jpeg':
 				$thumb = imagecreatefromjpeg($image_path);
 			break;
 
