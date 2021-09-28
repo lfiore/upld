@@ -25,7 +25,8 @@ $allowed_ext = [
 	'png',
 	'jpg',
 	'gif',
-	'jpeg'
+	'jpeg',
+	'webp'
 ];
 
 // user must have submitted either an image or URL
