@@ -10,19 +10,7 @@ if (!defined('IN_SCRIPT'))
 <head>
 	<title><?php echo SITE_NAME; ?></title>
 	<link href="css/upload.css" rel="stylesheet" type="text/css" />
-	<script src="js/jquery.min.js" type="text/javascript"></script>	
-	<script src="js/upload.js" type="text/javascript"></script>
 </head>
-<script>
-$( document ).ready(function() {
-   [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
-         img.setAttribute('src', img.getAttribute('data-src'));
-         img.onload = function() {
-            img.removeAttribute('data-src');
-         };
-   });
-});
-</script>	
 <body>
 	<div id="header">
 		<ul id="navbar">
