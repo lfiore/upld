@@ -1,80 +1,36 @@
 <?php
-
-session_start();
-
 $start = microtime();
-
-$db_queries = 0;
-
-define('MAIN_SITE_URL', trim(SITE_URL, '/') . '/');
-
-define('MAIN_SCRIPT_PATH', (SCRIPT_PATH ? trim(SCRIPT_PATH, '/') . '/' : ''));
-
-define('VIEW_PATH', (FRIENDLY_URLS ? '' : 'view.php?id='));
-
-define('VIEW_URL', 'http://' . MAIN_SITE_URL . MAIN_SCRIPT_PATH . VIEW_PATH);
-
-define('IMAGES_URL', 'http://' . (FRIENDLY_URLS ? 'i.' : '') . MAIN_SITE_URL . (FRIENDLY_URLS ? '' : MAIN_SCRIPT_PATH . 'images/'));
-
-define('IN_SCRIPT', true);
-
-// server is using cloudflare, check for spoofed IP
-if (CLOUDFLARE === true)
-{
-	require('lib/ip_in_range.php');
-	
-	// cloudflare IP ranges
-	$cf_ipv4 = explode("\n", file_get_contents('https://www.cloudflare.com/ips-v4'));
-	$cf_ipv6 = explode("\n", file_get_contents('https://www.cloudflare.com/ips-v6'));
-
-	// check to make sure that the IP is valid, if the server is behind cloudflare
-	if (isset($_SERVER['HTTP_CF_CONNECTING_IP']))
-	{
-
-		// assume IP is invalid
-		$valid = false;
-
-		// ipv4 or ipv6?
-		if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4))
-		{
-			foreach ($cf_ipv4 as $range)
-			{
-				if (ipv4_in_range($_SERVER['REMOTE_ADDR'], $range))
-				{
-					$valid = true;
-					define('IP', $_SERVER['HTTP_CF_CONNECTING_IP']);
-					break;
-				}
+include('db.php');
+if (COOKIE_SESSION == true) {
+	/* Cookie Session */
+	if (isset($_COOKIE["Session"]) AND !isset($_SESSION["user"])) {
+		$cookie = mysqli_real_escape_string($db, $_COOKIE["Session"]);
+		$query = mysqli_query($db,"SELECT id FROM session WHERE session_hash = '$cookie' AND data_ora >= (CURDATE() - INTERVAL 30 DAY);") or die("Errore:".mysqli_error($query));
+		++$db_queries;
+		if (mysqli_num_rows($query) > 0) {
+			while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+				$_SESSION["user"] = $row["id"];
 			}
-		}
-		elseif (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
-		{
-			foreach ($cf_ipv6 as $range)
-			{
-				if (ipv6_in_range($_SERVER['REMOTE_ADDR'], $range))
-				{
-					$valid = true;
-					define('IP', $_SERVER['HTTP_CF_CONNECTING_IP']);
-					break;
-				}
+			$query_adm = mysqli_query($db,"SELECT admin FROM users WHERE id = ".$_SESSION["user"].";") or die("Errore:".mysqli_error($query));
+			++$db_queries;
+			while ($row_adm = mysqli_fetch_array($query_adm, MYSQLI_ASSOC)) {
+				if ($row_adm["admin"] == 1) $_SESSION['admin'] = true;
 			}
-		}
-		else
-		{
-			exit_message('IP address error');
-		}
-
-		if ($valid === false)
-		{
-			exit_message('ip spoofing detected');
 		}
 	}
 }
-else
-{
-	define('IP', $_SERVER['REMOTE_ADDR']);
+$db_queries = 0;
+define('MAIN_SITE_URL', trim(SITE_URL, '/') . '/');
+define('MAIN_SCRIPT_PATH', (SCRIPT_PATH ? trim(SCRIPT_PATH, '/') . '/' : ''));
+define('VIEW_PATH', (FRIENDLY_URLS ? '' : 'view.php?id='));
+define('VIEW_URL', 'https://' . MAIN_SITE_URL . MAIN_SCRIPT_PATH . VIEW_PATH);
+define('IMAGES_URL', 'https://' . (FRIENDLY_URLS ? 'i.' : '') . MAIN_SITE_URL . (FRIENDLY_URLS ? '' : MAIN_SCRIPT_PATH . 'images/'));
+define('IN_SCRIPT', true);
+include ("language_switch.php");
+function rand_string( $length ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_%$£!";
+    return substr(str_shuffle($chars),0,$length);
 }
-
 function exit_message($message)
 {
 	require('inc/header.php');

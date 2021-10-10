@@ -1,22 +1,13 @@
 <?php
-
 if (!defined('IN_SCRIPT'))
 {
 	header('location: ../index.php');
 	exit;
 }
-
 ?>
-
 	</div>
-
 	<div id="footer">
-		<a href="faq.php">FAQ</a>|<a href="tc.php">Terms &amp; Conditions</a>|<a href="contact.php">Contact</a>
-		<!-- page generated in <?php echo round((microtime(true) - $start), 5); ?> seconds with <?php echo $db_queries; ?> DB quer<?php echo ($db_queries === 1 ? 'y' : 'ies'); ?> -->
+		<a href="faq.php"><?php echo GO_FAQ;?></a>|<a href="tc.php"><?php echo GO_TC;?></a>|<a href="contact.php"><?php echo GO_CONTACT;?></a>
 	</div>
-
-	<script src="js/jquery.min.js" type="text/javascript"></script>	
-	<script src="js/upload.js" type="text/javascript"></script>
-
 </body>
 </html>

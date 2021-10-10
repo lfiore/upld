@@ -1,131 +1,83 @@
 <?php
-
 if (!defined('IN_SCRIPT'))
 {
 	header('location: ../index.php');
 	exit;
 }
-
 $i = 0;
 $allowed_size = ALLOWED_SIZE;
-
 while ($allowed_size >= 1000)
 {
 	$allowed_size = ($allowed_size / 1000);
 	++$i;
 }
-
 $units = array('', 'K', 'M');
-
 $size = round($allowed_size, 1) . $units[$i];
-
 ?>
-
 		<div class="box">
-
-			<p class="title">Welcome to <?php echo SITE_NAME; ?></p>
-
+			<p class="title"><?php echo WELCOME_MAIN_TITLE; ?></p>
 			<ul>
-				<li><span class="black"><?php echo SITE_NAME; ?></span> is a free, online image host. Simply click the button below to start uploading!</li>
-				<li>Before uploading, you can register an account (or log in if you already have one) and manager your uploads later</li>
+				<li><span class="black"><?php echo SITE_NAME; ?></span> <?php echo WELCOME_MAIN_DESC_1;?></li>
+				<li><?php echo WELCOME_MAIN_DESC_2;?></li>
 			</ul>
-
 		</div>
-
 		<div class="box">
-
-			<p class="title">Why use <?php echo SITE_NAME; ?>?</p>
-
+			<p class="title"><?php echo WHY_USE_TITLE; ?></p>
 			<ul>
-				<li>It's completely <span class="black">free</span>!</li>
-				<li>You can create an account and <span class="black">manage all of your uploads</span></li>
+				<li><?php echo WHY_USE_GRATIS;?></li>
+				<li><?php echo WHY_USE_ACCOUNT;?></li>
 <?php
-
 if (ALLOW_REMOTE === true)
 {
-
 ?>
-
-				<li><span class="black">Download files remotely!</span></li>
-
+				<li><?php echo WHY_USE_REMOTE_UPLOAD;?></li>
 <?php
-
 }
-
 ?>
-
-				<li>The following image types are allowed: <span class="black">PNG, JPG, GIF</span></li>
-				<li>The files may be up to <span class="black"><?php echo $size ?>B</span> in size</li>
+				<li><?php echo WHY_USE_FILE_EXT_ALLOWED; ?> <span class="black">PNG, JPG, GIF, WEBP</span></li>
+				<li><?php echo WHY_USE_MAX_SIZE;?> <span class="black"><?php echo $size ?>B</span></li>
 <?php
-
 if (FRIENDLY_URLS === true)
 {
-
 ?>
-
-				<li><span class="black">Short, easy to remember</span> URLs!</li>
-
+				<li><?php echo WHY_USE_FRIENDLY_URL;?></li>
 <?php
-
 }
-
 ?>
-
 				<li></li>
 			</ul>
 		</div>
-
 <?php
-
 if ((ANON_UPLOADS === true) || ((ANON_UPLOADS === false) && (isset($_SESSION['user']))))
 {
-
 ?>
-
 		<div id="select-image" class="box">
-			click here to select an image
-		</div>
-
+			<?php echo UPLOAD_BUTTON;?>		</div>
 		<form id="upload-form" class="hidden" name="upload" method="POST" action="upload.php" enctype="multipart/form-data">
-			<input id="image-input" name="image" type="file" />
+			<input id="image-input" name="image" type="file" required />
 		</form>
-
 		<div id="cancel-image" class="hidden">
-			<span>wait, I want to upload something else!</span>
+			<span><?php echo UPLOAD_BUTTON_CANCEL; ?></span>
 		</div>
-
 <?php
-
 	if (ALLOW_REMOTE === true)
 	{
-
 ?>
-
 		<form id="url-form" name="remote-url" method="POST" action="upload.php">
-
 			<div id="download-url" class="box">
-				<input id="image-url-submit" type="submit" value="download remote image" />
+				<input id="image-url-submit" type="submit" value="<?php echo UPLOAD_REMOTE_BUTTON; ?>" />
 			</div>
-
 			<div id="select-url" class="box">
-				<input id="select-url-input" name="url" type="text" placeholder="Want to download your image remotely? Paste the link here (http://)" />
+				<input id="select-url-input" name="url" type="text" placeholder="<?php echo UPLOAD_REMOTE_PLACEHOLDER;?>" />
 			</div>
 		</form>
-
 <?php
-
 	}
-
 }
 else
 {
-
 ?>
-
-		<div class="box">Anonymous uploads have been disabled, please <a href="register.php">create an account</a> or <a href="login.php">log in</a> to upload</div>
-
+		<div class="box"><?php echo NO_ANON_UPLOAD;?></div>
 <?php
-
 }
-
 ?>

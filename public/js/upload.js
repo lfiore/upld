@@ -1,7 +1,6 @@
 // drag to upload
 var fileInput = document.getElementById('image-input');
 var urlInput = document.getElementById('select-url-input');
-
 window.addEventListener('paste', e =>
 {
 	if (e.clipboardData.getData('text/plain') !== '')
@@ -17,43 +16,36 @@ window.addEventListener('paste', e =>
 		$('#upload-form').submit();
 	}
 });
-
+ 
 $('#image-input').on('change', function()
 {
 	var selectImage = $('#select-image');
 	var cancelImage = $('#cancel-image');
-
-	selectImage.text('click again to upload ' + $(this).val().replace('C:\\fakepath\\', '')).css({
+	selectImage.text('Clicca ancora per caricare ' + $(this).val().replace('C:\\fakepath\\', '')).css({
 		'margin-bottom' : '10px',
 		'display' : 'block'
 	});
-
 	cancelImage.removeClass('hidden');
-
 	selectImage.off();
-
+	
 	selectImage.on('click', function() {
 			selectImage.off();
 			cancelImage.addClass('hidden');
 			$('#upload-form').submit();
-			selectImage.text('Your image is uploading, please wait');
+			selectImage.text('La tua immagine è in caricamento, attendi');
 		}
 	);
 });
-
 $('#select-image, #cancel-image').on('click', function()
 {
 	$('#image-input').click();
 });
-
 $('.delete').on('click', function() {
-	return confirm('Are you sure? This image WILL BE DELETED');
+	return confirm('Sei sicuro? Questa immagine verrà cancellata');
 });
-
 $('#ban').on('click', function() {
-	return confirm('Are you sure? This user will be BANNED and ALL OF THEIR IMAGES WILL BE DELETED');
+	return confirm('Sei sicuro? l\'Utente verrà bannato e tutti le sue immagini verranno cancellate');
 });
-
 $('#links li input').on('click', function()
 {
 	$(this).select();

@@ -12,8 +12,10 @@ Includes the following features
 * Support for remote downloads
 * Report/delete features
 
-You can demo the script at http://upld.uk/
+forked from: http://github.com/lfiore/upld/
 
-For more info (screenshots, installation steps, etc.) check http://docs.upld.uk/
-
-http://github.com/lfiore/upld/
+New function:
+* Multi-Language
+* Change password and email from the user panel
+* Reset password via email
+* Support for .webp format

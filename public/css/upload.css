@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Open Sans:400,600');
+@import url('//fonts.googleapis.com/css?family=Open Sans:400,600');
 
 * {
     margin: 0;
@@ -14,6 +14,14 @@ body {
     font-family: 'Open Sans', 'Arial', sans-serif;
     font-size: 0.875em;
     font-weight: 400;
+}
+
+img {
+   opacity: 1;
+   transition: opacity 0.3s;
+}
+img[data-src] {
+   opacity: 0;
 }
 
 a {
@@ -267,7 +275,7 @@ form[name='login'] input[type='submit'], form[name='register'] input[type='submi
 #report {
     text-align: center;
 }
-
+ 
 #report a {
     font-size: 0.75em;
     font-weight: bold;
@@ -306,12 +314,8 @@ form[name='login'] input[type='submit'], form[name='register'] input[type='submi
     color: #999;
 }
 
+
+
 #ban {
     color: #F33;
-}
-
-#pagination {
-    margin-bottom: 10px;
-    text-align: center;
-    word-spacing: 10px;
-}
+} 
