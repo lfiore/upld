@@ -130,24 +130,15 @@ while (mysqli_stmt_fetch($images))
 				$new_width = $width;
 			}
 
+			// create thumb with white background
 			$new_thumb = imagecreatetruecolor($new_width, $new_height);
-
-			switch ($ext)
-			{
-				case 'png':
-					imagefill($new_thumb, 0, 0, imagecolorallocate($new_thumb, 255, 255, 255));
-					imagealphablending($new_thumb, TRUE);
-				break;
-
-				case 'gif':
-					$new_thumb = imagecolorallocate($thumb, 0, 0, 0);
-					imagecolortransparent($thumb, $new_thumb);
-				break;
-			}
+			imagefill($new_thumb, 0, 0, imagecolorallocate($new_thumb, 255, 255, 255));
 			
+			// resize and copy original image
 			imagecopyresized($new_thumb, $thumb, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-			imagedestroy($thumb);	
-
+			imagedestroy($thumb);
+		
+			// save thumbnail to thumbnails folder
 			imagejpeg($new_thumb, 'thumbs/' . $id . '.jpg', 30);
 			imagedestroy($new_thumb);
 		}
