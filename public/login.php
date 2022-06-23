@@ -27,18 +27,18 @@ $password = $_POST['password'];
 
 require('db.php');
 
-$user = mysqli_prepare($db, 'SELECT `id`, `admin`, `banned` FROM `users` WHERE `email` = ? AND `password` = SHA2(CONCAT(`salt`, ?), 256)');
-mysqli_stmt_bind_param($user, 'ss', $email, $password);
+$user = mysqli_prepare($db, 'SELECT `id`, `salt`, `password`, `admin`, `banned` FROM `users` WHERE `email` = ?');
+mysqli_stmt_bind_param($user, 's', $email);
 mysqli_stmt_execute($user);
 ++$db_queries;
 mysqli_stmt_store_result($user);
 
 if (mysqli_stmt_num_rows($user) ===0)
 {
-	exit_message('Sorry, no account exists with this email and password');
+	exit_message('Sorry, either no account exists with this email or the password is incorrect');
 }
 
-mysqli_stmt_bind_result($user, $id, $admin, $banned);
+mysqli_stmt_bind_result($user, $id, $salt, $password, $admin, $banned);
 mysqli_stmt_fetch($user);
 mysqli_stmt_close($user);
 mysqli_close($db);
@@ -49,7 +49,17 @@ if ($banned === '1')
 	exit_message('This account has been banned');
 }
 
-$_SESSION['user'] = $id;
+$hashed_password = hash('sha256', $salt . $_POST['password']);
+
+if ($password !== $hashed_password)
+{
+	exit_message('Sorry, either no account exists with this email or the password is incorrect');
+}
+else
+{
+	$_SESSION['user'] = $id;
+}
+
 
 if ($admin === '1')
 {
