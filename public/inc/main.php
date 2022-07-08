@@ -27,7 +27,7 @@ $size = round($allowed_size, 1) . $units[$i];
 
 			<ul>
 				<li><span class="black"><?php echo SITE_NAME; ?></span> is a free, online image host. Simply click the button below to start uploading!</li>
-				<li>Before uploading, you can register an account (or log in if you already have one) and manager your uploads later</li>
+				<li>Before uploading, you can register an account (or log in if you already have one) and manage your uploads later</li>
 			</ul>
 
 		</div>
